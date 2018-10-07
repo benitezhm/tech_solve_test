@@ -1,0 +1,31 @@
+table {
+    border-collapse: collapse;
+}
+
+td, th {
+    border: 1px solid #999;
+    padding: 0.5rem;
+    text-align: left;
+}
+
+.output {
+	background-color: #66666657;
+	height:306px;
+	width:421px;
+	clear:both;
+}
+
+.submit {
+	background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+}
+
+input, label {
+    display:block;
+}
