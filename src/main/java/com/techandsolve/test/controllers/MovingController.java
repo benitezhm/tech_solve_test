@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.techandsolve.test.services.MovingService;
 
@@ -22,6 +23,11 @@ public class MovingController {
 	@Autowired
 	public MovingController(MovingService movingService) {
 		this.movingService = movingService;
+	}
+	
+	@RequestMapping(value = "/lazyload")
+	public void lazyLoading() {
+		
 	}
 	
 	public int lazyTransporting() {
