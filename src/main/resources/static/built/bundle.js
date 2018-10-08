@@ -22107,7 +22107,29 @@ function (_React$Component) {
     key: "handleSubmit",
     value: function handleSubmit(event) {
       event.preventDefault();
-      console.warn(_store__WEBPACK_IMPORTED_MODULE_0__["default"].getState().inputData);
+      var lines = _store__WEBPACK_IMPORTED_MODULE_0__["default"].getState().inputData.split("\n");
+      var numberOfDays = parseInt(lines[0]);
+      var numberOfElements = 0;
+      var data = {
+        days: numberOfDays
+      };
+
+      for (var j = 1; j <= numberOfDays; j++) {
+        // iterate over the days
+        var cas = "case #" + j + ": ";
+        var start = j + numberOfElements;
+        numberOfElements = parseInt(lines[start]);
+        var elements = [];
+
+        for (var i = 1; i <= numberOfElements; i++) {
+          elements.push(parseInt(lines[i + start]));
+        }
+
+        data[cas] = elements;
+      }
+
+      console.warn(data); // TODO make the backend call here
+
       window.location = "#";
     }
   }, {
