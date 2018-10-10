@@ -17,6 +17,12 @@ public class Case {
 		
 	}
 	
+	public Case(String caseName, ArrayList<Integer> elements) {
+		super();
+		this.caseName = caseName;
+		this.elements = elements;
+	}
+
 	private ArrayList<Integer> elements;
 
 	public String getCaseName() {
