@@ -1,7 +1,8 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
+import axios from 'axios';
 import store from "./store";
-import { setInputData } from "./actions";
+import { setInputData, setOutputData } from "./actions";
 
 window.store = store;
 //window.setInputData = setInputData;
@@ -18,19 +19,25 @@ class App extends React.Component {
 		let lines = store.getState().inputData.split("\n");
 		let numberOfDays = parseInt(lines[0]);
 		let numberOfElements = 0;
-		let data = {days: numberOfDays};
+		let data = [];
 		for (let j = 1; j <= numberOfDays; j++) { // iterate over the days
-			let cas = "case #" + j + ": ";
+			let caseNo = "case #" + j;
 			let start = j + numberOfElements;
 			numberOfElements = parseInt(lines[start]);
-			var elements = [];
+			let elements = [];
 			for (let i = 1; i <= numberOfElements; i++) {
 				elements.push(parseInt(lines[i+start]));
 			}
-			data[cas] = elements; 
+			data.push({caseName: caseNo, elements: elements}); 
 		}
-		console.warn(data);
-		// TODO make the backend call here
+		console.log(data);
+		console.log(JSON.stringify(data));
+		// make the backend call here
+		axios.post(`http://localhost:8080/process_input`, data)
+			.then(res => {
+				console.log(res);
+				store.dispatch(setOutputData(res.data));
+		});
 		window.location = "#";
 	}
 	

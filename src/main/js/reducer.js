@@ -1,7 +1,8 @@
-import { SET_INPUT_DATA } from "./constants";
+import { SET_INPUT_DATA, SET_OUTPUT_DATA } from "./constants";
 
 const initialState = {
-  inputData: ""
+  inputData: "",
+  outputData: []
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -10,6 +11,10 @@ const rootReducer = (state = initialState, action) => {
 			return Object.assign({}, state, {
 		        inputData: action.payload,
 		      });
+		case SET_OUTPUT_DATA:
+			return Object.assign({}, state, {
+				outputData: action.payload,
+			});
 		default:
 			return state;
 	}

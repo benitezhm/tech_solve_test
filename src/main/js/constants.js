@@ -1,1 +1,2 @@
-export const SET_INPUT_DATA = "SET_INPUT_DATA";
+export const SET_INPUT_DATA = "SET_INPUT_DATA",
+				SET_OUTPUT_DATA = "SET_OUTPUT_DATA";
