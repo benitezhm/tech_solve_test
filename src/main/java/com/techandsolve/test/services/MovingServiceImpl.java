@@ -6,7 +6,11 @@ package com.techandsolve.test.services;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.techandsolve.test.model.Petition;
+import com.techandsolve.test.repository.PetitionRepository;
 
 /**
  * @author miguel
@@ -16,6 +20,13 @@ import org.springframework.stereotype.Service;
 public class MovingServiceImpl implements MovingService {
 
 	private final int MIN_WEIGHT = 50;
+	
+	@Autowired
+	private final PetitionRepository repository;
+	
+	public MovingServiceImpl(PetitionRepository repository) {
+		this.repository = repository;
+	}
 	
 	/*
 	 * (non-Javadoc)
@@ -44,6 +55,13 @@ public class MovingServiceImpl implements MovingService {
 			}
 		}
 		return travels;
+	}
+
+	@Override
+	public void registerPetition(int identification) {
+		this.repository.save(new Petition(identification));
+		
+		
 	}
 
 }

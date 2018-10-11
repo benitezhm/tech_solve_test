@@ -35,14 +35,17 @@ public class MovingController {
 	@PostMapping("/process_input")
 	@ResponseBody
 	public ArrayList<String> processInputData(@RequestBody List<Case> cases) {
+		int identification = 0;
 		ArrayList<String> list = new ArrayList<>();
 		for (Case caseDay : cases)  {
+			identification = caseDay.getIdentification();
 			String travels = new StringBuilder(caseDay.getCaseName())
 					.append(": ")
 					.append(String.valueOf(movingService.moveElements(0, caseDay.getElements())))
 					.toString();
 			list.add(travels);
 		}
+		movingService.registerPetition(identification);
 		return list;
 	}
 	

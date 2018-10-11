@@ -2,6 +2,7 @@ import { SET_INPUT_DATA, SET_OUTPUT_DATA } from "./constants";
 
 const initialState = {
   inputData: "",
+  identification: "",
   outputData: []
 };
 

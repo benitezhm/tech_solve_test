@@ -27,9 +27,6 @@ public class MovingControllerTest {
 	@Before
 	public void setUp() throws Exception {
 		this.movingController = new MovingController(new MovingServiceImpl());
-		
-		
-		
 	}
 	
 	@Test

@@ -34,7 +34,7 @@ class App extends React.Component {
 			data.push({caseName: caseNo, elements: elements}); 
 		}
 		
-		// make the backend call here
+		// backend call here
 		axios.post(`http://localhost:8080/process_input`, data)
 			.then(res => {
 				console.log(res);
@@ -48,7 +48,7 @@ class App extends React.Component {
 			<table>
 				<tbody>
 					<tr>
-						<td> <InputFileReader /> </td>
+						<td> <InputIdentification /><InputFileReader /> </td>
 						<td> <OutputData /> </td>
 					</tr>
 					<tr>
@@ -78,6 +78,27 @@ class InputData extends React.Component {
 				<label htmlFor="input">Input:</label>
 				<textarea rows="20" cols="50" onChange={this.handleChange} 
 					value={store.getState.inputData} />
+			</React.Fragment>
+		)
+	}
+}
+
+class InputIdentification extends React.Component {
+	constructor(props) {
+		super(props);
+		this.handleChange = this.handleChange.bind(this);
+	}
+	
+	handleChange(event) {
+		store.dispatch(setInputData(event.target.value));
+	}
+	
+	render() {
+		return (
+			<React.Fragment>
+				<label htmlFor="input">Identification:</label>
+				<input type="number" onChange={this.handleChange} 
+					value={store.getState.identification} />
 			</React.Fragment>
 		)
 	}

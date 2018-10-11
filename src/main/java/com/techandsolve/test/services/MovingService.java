@@ -13,4 +13,6 @@ public interface MovingService {
 	
 	int moveElements(int day, ArrayList<Integer> elementsWeight);
 
+	void registerPetition(int identification);
+
 }

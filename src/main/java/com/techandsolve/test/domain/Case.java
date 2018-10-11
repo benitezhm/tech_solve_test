@@ -13,17 +13,28 @@ public class Case {
 	
 	private String caseName;
 	
+	private ArrayList<Integer> elements;
+	
+	private int identification;
+	
 	public Case() {
 		
 	}
 	
-	public Case(String caseName, ArrayList<Integer> elements) {
+	public Case(String caseName, ArrayList<Integer> elements, int identification) {
 		super();
 		this.caseName = caseName;
 		this.elements = elements;
+		this.identification = identification;
 	}
 
-	private ArrayList<Integer> elements;
+	public int getIdentification() {
+		return identification;
+	}
+
+	public void setIdentification(int identification) {
+		this.identification = identification;
+	}
 
 	public String getCaseName() {
 		return caseName;

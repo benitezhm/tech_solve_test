@@ -24036,7 +24036,7 @@ function (_React$Component) {
           caseName: caseNo,
           elements: elements
         });
-      } // make the backend call here
+      } // backend call here
 
 
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("http://localhost:8080/process_input", data).then(function (res) {
@@ -24048,7 +24048,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return React.createElement("table", null, React.createElement("tbody", null, React.createElement("tr", null, React.createElement("td", null, " ", React.createElement(InputFileReader, null), " "), React.createElement("td", null, " ", React.createElement(OutputData, null), " ")), React.createElement("tr", null, React.createElement("td", {
+      return React.createElement("table", null, React.createElement("tbody", null, React.createElement("tr", null, React.createElement("td", null, " ", React.createElement(InputIdentification, null), React.createElement(InputFileReader, null), " "), React.createElement("td", null, " ", React.createElement(OutputData, null), " ")), React.createElement("tr", null, React.createElement("td", {
         colSpan: "2"
       }, React.createElement("button", {
         className: "submit",
@@ -24097,19 +24097,55 @@ function (_React$Component2) {
   return InputData;
 }(React.Component);
 
-var InputFileReader =
+var InputIdentification =
 /*#__PURE__*/
 function (_React$Component3) {
-  _inherits(InputFileReader, _React$Component3);
+  _inherits(InputIdentification, _React$Component3);
+
+  function InputIdentification(props) {
+    var _this3;
+
+    _classCallCheck(this, InputIdentification);
+
+    _this3 = _possibleConstructorReturn(this, _getPrototypeOf(InputIdentification).call(this, props));
+    _this3.handleChange = _this3.handleChange.bind(_assertThisInitialized(_assertThisInitialized(_this3)));
+    return _this3;
+  }
+
+  _createClass(InputIdentification, [{
+    key: "handleChange",
+    value: function handleChange(event) {
+      _store__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_3__["setInputData"])(event.target.value));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return React.createElement(React.Fragment, null, React.createElement("label", {
+        htmlFor: "input"
+      }, "Identification:"), React.createElement("input", {
+        type: "number",
+        onChange: this.handleChange,
+        value: _store__WEBPACK_IMPORTED_MODULE_2__["default"].getState.identification
+      }));
+    }
+  }]);
+
+  return InputIdentification;
+}(React.Component);
+
+var InputFileReader =
+/*#__PURE__*/
+function (_React$Component4) {
+  _inherits(InputFileReader, _React$Component4);
 
   function InputFileReader(props) {
-    var _this3;
+    var _this4;
 
     _classCallCheck(this, InputFileReader);
 
-    _this3 = _possibleConstructorReturn(this, _getPrototypeOf(InputFileReader).call(this, props));
-    _this3.handleFileChoosen = _this3.handleFileChoosen.bind(_assertThisInitialized(_assertThisInitialized(_this3)));
-    return _this3;
+    _this4 = _possibleConstructorReturn(this, _getPrototypeOf(InputFileReader).call(this, props));
+    _this4.handleFileChoosen = _this4.handleFileChoosen.bind(_assertThisInitialized(_assertThisInitialized(_this4)));
+    return _this4;
   }
 
   _createClass(InputFileReader, [{
@@ -24142,20 +24178,20 @@ function (_React$Component3) {
 
 var OutputData =
 /*#__PURE__*/
-function (_React$Component4) {
-  _inherits(OutputData, _React$Component4);
+function (_React$Component5) {
+  _inherits(OutputData, _React$Component5);
 
   function OutputData(props) {
-    var _this4;
+    var _this5;
 
     _classCallCheck(this, OutputData);
 
-    _this4 = _possibleConstructorReturn(this, _getPrototypeOf(OutputData).call(this, props));
-    _this4.state = {
+    _this5 = _possibleConstructorReturn(this, _getPrototypeOf(OutputData).call(this, props));
+    _this5.state = {
       elements: []
     };
-    _this4.updateStateFromStore = _this4.updateStateFromStore.bind(_assertThisInitialized(_assertThisInitialized(_this4)));
-    return _this4;
+    _this5.updateStateFromStore = _this5.updateStateFromStore.bind(_assertThisInitialized(_assertThisInitialized(_this5)));
+    return _this5;
   }
 
   _createClass(OutputData, [{
@@ -24220,6 +24256,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var initialState = {
   inputData: "",
+  identification: "",
   outputData: []
 };
 
