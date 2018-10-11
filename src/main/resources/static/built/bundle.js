@@ -23962,10 +23962,11 @@ var setInputData = function setInputData(inputData) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./store */ "./src/main/js/store.js");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./actions */ "./src/main/js/actions.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./store */ "./src/main/js/store.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./actions */ "./src/main/js/actions.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -23991,7 +23992,8 @@ var ReactDOM = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/in
 
 
 
-window.store = _store__WEBPACK_IMPORTED_MODULE_1__["default"]; //window.setInputData = setInputData;
+
+window.store = _store__WEBPACK_IMPORTED_MODULE_2__["default"]; // window.setInputData = setInputData;
 
 var App =
 /*#__PURE__*/
@@ -24012,41 +24014,41 @@ function (_React$Component) {
     key: "handleSubmit",
     value: function handleSubmit(event) {
       event.preventDefault();
-      var lines = _store__WEBPACK_IMPORTED_MODULE_1__["default"].getState().inputData.split("\n");
+      var lines = _store__WEBPACK_IMPORTED_MODULE_2__["default"].getState().inputData.split("\n");
       var numberOfDays = parseInt(lines[0]);
       var numberOfElements = 0;
       var data = [];
+      var index = 0;
 
       for (var j = 1; j <= numberOfDays; j++) {
         // iterate over the days
         var caseNo = "case #" + j;
-        var start = j + numberOfElements;
-        numberOfElements = parseInt(lines[start]);
+        index = index + 1;
+        numberOfElements = parseInt(lines[index]);
         var elements = [];
 
         for (var i = 1; i <= numberOfElements; i++) {
-          elements.push(parseInt(lines[i + start]));
+          index = index + 1;
+          elements.push(parseInt(lines[index]));
         }
 
         data.push({
           caseName: caseNo,
           elements: elements
         });
-      }
+      } // make the backend call here
 
-      console.log(data);
-      console.log(JSON.stringify(data)); // make the backend call here
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:8080/process_input", data).then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("http://localhost:8080/process_input", data).then(function (res) {
         console.log(res);
-        _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_2__["setOutputData"])(res.data));
+        _store__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_3__["setOutputData"])(res.data));
       });
       window.location = "#";
     }
   }, {
     key: "render",
     value: function render() {
-      return React.createElement("table", null, React.createElement("tbody", null, React.createElement("tr", null, React.createElement("td", null, " ", React.createElement(InputData, null), " "), React.createElement("td", null, " ", React.createElement(OutputData, null), " ")), React.createElement("tr", null, React.createElement("td", {
+      return React.createElement("table", null, React.createElement("tbody", null, React.createElement("tr", null, React.createElement("td", null, " ", React.createElement(InputFileReader, null), " "), React.createElement("td", null, " ", React.createElement(OutputData, null), " ")), React.createElement("tr", null, React.createElement("td", {
         colSpan: "2"
       }, React.createElement("button", {
         className: "submit",
@@ -24076,7 +24078,7 @@ function (_React$Component2) {
   _createClass(InputData, [{
     key: "handleChange",
     value: function handleChange(event) {
-      _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_2__["setInputData"])(event.target.value));
+      _store__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_3__["setInputData"])(event.target.value));
     }
   }, {
     key: "render",
@@ -24087,7 +24089,7 @@ function (_React$Component2) {
         rows: "20",
         cols: "50",
         onChange: this.handleChange,
-        value: _store__WEBPACK_IMPORTED_MODULE_1__["default"].getState.inputData
+        value: _store__WEBPACK_IMPORTED_MODULE_2__["default"].getState.inputData
       }));
     }
   }]);
@@ -24095,25 +24097,90 @@ function (_React$Component2) {
   return InputData;
 }(React.Component);
 
-var OutputData =
+var InputFileReader =
 /*#__PURE__*/
 function (_React$Component3) {
-  _inherits(OutputData, _React$Component3);
+  _inherits(InputFileReader, _React$Component3);
 
-  function OutputData() {
+  function InputFileReader(props) {
+    var _this3;
+
+    _classCallCheck(this, InputFileReader);
+
+    _this3 = _possibleConstructorReturn(this, _getPrototypeOf(InputFileReader).call(this, props));
+    _this3.handleFileChoosen = _this3.handleFileChoosen.bind(_assertThisInitialized(_assertThisInitialized(_this3)));
+    return _this3;
+  }
+
+  _createClass(InputFileReader, [{
+    key: "handleFileChoosen",
+    value: function handleFileChoosen(event) {
+      var file = event.target.files[0];
+      var fileReader = new FileReader();
+
+      fileReader.onloadend = function () {
+        _store__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_3__["setInputData"])(fileReader.result));
+      };
+
+      fileReader.readAsText(file);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return React.createElement(React.Fragment, null, React.createElement("input", {
+        type: "file",
+        id: "file",
+        className: "input-file",
+        accept: ".txt",
+        onChange: this.handleFileChoosen
+      }));
+    }
+  }]);
+
+  return InputFileReader;
+}(React.Component);
+
+var OutputData =
+/*#__PURE__*/
+function (_React$Component4) {
+  _inherits(OutputData, _React$Component4);
+
+  function OutputData(props) {
+    var _this4;
+
     _classCallCheck(this, OutputData);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(OutputData).apply(this, arguments));
+    _this4 = _possibleConstructorReturn(this, _getPrototypeOf(OutputData).call(this, props));
+    _this4.state = {
+      elements: []
+    };
+    _this4.updateStateFromStore = _this4.updateStateFromStore.bind(_assertThisInitialized(_assertThisInitialized(_this4)));
+    return _this4;
   }
 
   _createClass(OutputData, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.unsubscribeStore = _store__WEBPACK_IMPORTED_MODULE_2__["default"].subscribe(this.updateStateFromStore);
+    }
+  }, {
+    key: "updateStateFromStore",
+    value: function updateStateFromStore(event) {
+      this.setState({
+        elements: _store__WEBPACK_IMPORTED_MODULE_2__["default"].getState().outputData
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
+      var output = this.state.elements.map(function (el) {
+        return React.createElement("li", null, el);
+      });
       return React.createElement(React.Fragment, null, React.createElement("label", {
         htmlFor: "output"
       }, "Output:"), React.createElement("div", {
         className: "output"
-      }));
+      }, React.createElement("ul", null, output)));
     }
   }]);
 
