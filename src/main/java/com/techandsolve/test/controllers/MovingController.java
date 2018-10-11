@@ -22,12 +22,10 @@ import com.techandsolve.test.services.MovingService;
 @Controller
 public class MovingController {
 	
-//	@SuppressWarnings("serial")
-//	static class CaseList extends ArrayList<Case> { }
-	
+	@Autowired
 	private MovingService movingService;
 	
-	@Autowired
+	
 	public MovingController(MovingService movingService) {
 		this.movingService = movingService;
 	}

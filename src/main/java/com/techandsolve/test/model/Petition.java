@@ -46,7 +46,7 @@ public class Petition {
 	private int identification;
 	private Date date = new Date();;
 	
-	private Petition() { }
+	protected Petition() { }
 	
 	public Petition(int identification) {
 		this.identification = identification;

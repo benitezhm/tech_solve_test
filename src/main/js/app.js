@@ -3,7 +3,7 @@ const ReactDOM = require('react-dom');
 import { connect } from "redux";
 import axios from 'axios';
 import store from "./store";
-import { setInputData, setOutputData } from "./actions";
+import { setInputData, setOutputData, setIdentification } from "./actions";
 
 window.store = store;
 // window.setInputData = setInputData;
@@ -31,7 +31,8 @@ class App extends React.Component {
 				index = index + 1;
 				elements.push(parseInt(lines[index]));
 			}
-			data.push({caseName: caseNo, elements: elements}); 
+			data.push({caseName: caseNo, elements: elements, 
+				identification: store.getState().identification}); 
 		}
 		
 		// backend call here
@@ -90,7 +91,7 @@ class InputIdentification extends React.Component {
 	}
 	
 	handleChange(event) {
-		store.dispatch(setInputData(event.target.value));
+		store.dispatch(setIdentification(event.target.value));
 	}
 	
 	render() {
@@ -149,7 +150,7 @@ class OutputData extends React.Component {
 	
 	render() {
 		let output = this.state.elements.map(function(el) {
-			return <li>{el}</li>
+			return <li key={el}>{el}</li>
 		});
 		return (
 			<React.Fragment>

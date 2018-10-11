@@ -5,6 +5,7 @@ package com.techandsolve.test.services;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,16 +23,19 @@ public class MovingServiceImpl implements MovingService {
 	private final int MIN_WEIGHT = 50;
 	
 	@Autowired
-	private final PetitionRepository repository;
+	private PetitionRepository repository;
 	
-	public MovingServiceImpl(PetitionRepository repository) {
-		this.repository = repository;
+	public MovingServiceImpl() { }
+	
+	@Override
+	public List<Petition> getPetitions() {
+		return (List<Petition>) repository.findAll();
 	}
 	
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.techandsolve.test.services.MovingService#moveElements(int, int[])
+	 * @see com.techandsolve.test.services.MovingService#moveElements(int, ArrayList<Integer>)
 	 */
 	@Override
 	public int moveElements(int day, ArrayList<Integer> elementsWeight) {

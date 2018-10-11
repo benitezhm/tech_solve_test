@@ -23929,13 +23929,14 @@ module.exports = function(originalModule) {
 /*!********************************!*\
   !*** ./src/main/js/actions.js ***!
   \********************************/
-/*! exports provided: setInputData, setOutputData */
+/*! exports provided: setInputData, setOutputData, setIdentification */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setInputData", function() { return setInputData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setOutputData", function() { return setOutputData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setIdentification", function() { return setIdentification; });
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./src/main/js/constants.js");
 
 var setInputData = function setInputData(inputData) {
@@ -23948,6 +23949,12 @@ var setInputData = function setInputData(inputData) {
   return {
     type: _constants__WEBPACK_IMPORTED_MODULE_0__["SET_OUTPUT_DATA"],
     payload: outputData
+  };
+},
+    setIdentification = function setIdentification(identification) {
+  return {
+    type: _constants__WEBPACK_IMPORTED_MODULE_0__["SET_IDENTIFICATION"],
+    payload: identification
   };
 };
 
@@ -24034,7 +24041,8 @@ function (_React$Component) {
 
         data.push({
           caseName: caseNo,
-          elements: elements
+          elements: elements,
+          identification: _store__WEBPACK_IMPORTED_MODULE_2__["default"].getState().identification
         });
       } // backend call here
 
@@ -24115,7 +24123,7 @@ function (_React$Component3) {
   _createClass(InputIdentification, [{
     key: "handleChange",
     value: function handleChange(event) {
-      _store__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_3__["setInputData"])(event.target.value));
+      _store__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_3__["setIdentification"])(event.target.value));
     }
   }, {
     key: "render",
@@ -24210,7 +24218,9 @@ function (_React$Component5) {
     key: "render",
     value: function render() {
       var output = this.state.elements.map(function (el) {
-        return React.createElement("li", null, el);
+        return React.createElement("li", {
+          key: el
+        }, el);
       });
       return React.createElement(React.Fragment, null, React.createElement("label", {
         htmlFor: "output"
@@ -24231,15 +24241,17 @@ ReactDOM.render(React.createElement(App, null), document.getElementById('react')
 /*!**********************************!*\
   !*** ./src/main/js/constants.js ***!
   \**********************************/
-/*! exports provided: SET_INPUT_DATA, SET_OUTPUT_DATA */
+/*! exports provided: SET_INPUT_DATA, SET_OUTPUT_DATA, SET_IDENTIFICATION */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_INPUT_DATA", function() { return SET_INPUT_DATA; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_OUTPUT_DATA", function() { return SET_OUTPUT_DATA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_IDENTIFICATION", function() { return SET_IDENTIFICATION; });
 var SET_INPUT_DATA = "SET_INPUT_DATA",
-    SET_OUTPUT_DATA = "SET_OUTPUT_DATA";
+    SET_OUTPUT_DATA = "SET_OUTPUT_DATA",
+    SET_IDENTIFICATION = "SET_IDENTIFICATION";
 
 /***/ }),
 
@@ -24273,6 +24285,11 @@ var rootReducer = function rootReducer() {
     case _constants__WEBPACK_IMPORTED_MODULE_0__["SET_OUTPUT_DATA"]:
       return Object.assign({}, state, {
         outputData: action.payload
+      });
+
+    case _constants__WEBPACK_IMPORTED_MODULE_0__["SET_IDENTIFICATION"]:
+      return Object.assign({}, state, {
+        identification: action.payload
       });
 
     default:
