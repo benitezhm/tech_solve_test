@@ -6,6 +6,7 @@ Aplicación que permite determinar la cantidad máxima de viajes que un colabora
 # Tecologías usadas
   * Spring Framework / SprignBoot
   * JPA / Hibernate
+  * JUnit
   * React / Redux
   * H2 Base de Datos en Memoria
   * maven
