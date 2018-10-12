@@ -24013,6 +24013,10 @@ function (_React$Component) {
     _classCallCheck(this, App);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(App).call(this, props));
+    _this.state = {
+      messageFile: "",
+      messageId: ""
+    };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
@@ -24021,7 +24025,27 @@ function (_React$Component) {
     key: "handleSubmit",
     value: function handleSubmit(event) {
       event.preventDefault();
-      var lines = _store__WEBPACK_IMPORTED_MODULE_2__["default"].getState().inputData.split("\n");
+      this.setState({
+        messageId: "",
+        messageFile: ""
+      }); // validate if the identification number is present
+
+      if (_store__WEBPACK_IMPORTED_MODULE_2__["default"].getState().identification == "") {
+        this.setState({
+          messageId: "No identification number"
+        });
+        return;
+      }
+
+      var lines = _store__WEBPACK_IMPORTED_MODULE_2__["default"].getState().inputData.split("\n"); // validate if the lines from the input file is present
+
+      if (lines[0] == "" || lines == "") {
+        this.setState({
+          messageFile: "No input file or file is empty"
+        });
+        return;
+      }
+
       var numberOfDays = parseInt(lines[0]);
       var numberOfElements = 0;
       var data = [];
@@ -24056,7 +24080,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return React.createElement("table", null, React.createElement("tbody", null, React.createElement("tr", null, React.createElement("td", null, " ", React.createElement(InputIdentification, null), React.createElement(InputFileReader, null), " "), React.createElement("td", null, " ", React.createElement(OutputData, null), " ")), React.createElement("tr", null, React.createElement("td", {
+      return React.createElement("table", null, React.createElement("tbody", null, React.createElement("tr", null, React.createElement("td", null, this.state.messageId, React.createElement(InputIdentification, null), this.state.messageFile, React.createElement(InputFileReader, null)), React.createElement("td", null, " ", React.createElement(OutputData, null), " ")), React.createElement("tr", null, React.createElement("td", {
         colSpan: "2"
       }, React.createElement("button", {
         className: "submit",
@@ -24152,6 +24176,9 @@ function (_React$Component4) {
     _classCallCheck(this, InputFileReader);
 
     _this4 = _possibleConstructorReturn(this, _getPrototypeOf(InputFileReader).call(this, props));
+    _this4.state = {
+      fileName: ""
+    };
     _this4.handleFileChoosen = _this4.handleFileChoosen.bind(_assertThisInitialized(_assertThisInitialized(_this4)));
     return _this4;
   }
@@ -24160,6 +24187,9 @@ function (_React$Component4) {
     key: "handleFileChoosen",
     value: function handleFileChoosen(event) {
       var file = event.target.files[0];
+      this.setState({
+        fileName: file.name
+      });
       var fileReader = new FileReader();
 
       fileReader.onloadend = function () {
@@ -24171,13 +24201,19 @@ function (_React$Component4) {
   }, {
     key: "render",
     value: function render() {
-      return React.createElement(React.Fragment, null, React.createElement("input", {
+      return React.createElement(React.Fragment, null, React.createElement("div", {
+        className: "input-file-container"
+      }, React.createElement("input", {
         type: "file",
         id: "file",
         className: "input-file",
         accept: ".txt",
         onChange: this.handleFileChoosen
-      }));
+      }), React.createElement("label", {
+        tabIndex: "0",
+        htmlFor: "file",
+        className: "input-file-trigger"
+      }, "Select a file..."), React.createElement("p", null, this.state.fileName)));
     }
   }]);
 

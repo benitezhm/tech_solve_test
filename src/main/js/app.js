@@ -12,12 +12,24 @@ class App extends React.Component {
 	
 	constructor(props) {
 		super(props);
+		this.state = {messageFile: "", messageId: ""};
 		this.handleSubmit =  this.handleSubmit.bind(this);
 	}
 	
 	handleSubmit(event) {
 		event.preventDefault();
+		this.setState({messageId: "", messageFile: ""});
+		// validate if the identification number is present
+		if (store.getState().identification == "") {
+			this.setState({messageId: "No identification number"});
+			return;
+		}
 		let lines = store.getState().inputData.split("\n");
+		// validate if the lines from the input file is present
+		if (lines[0] == "" || lines == "") {
+			this.setState({messageFile: "No input file or file is empty"});
+			return;
+		}
 		let numberOfDays = parseInt(lines[0]);
 		let numberOfElements = 0;
 		let data = [];
@@ -49,7 +61,12 @@ class App extends React.Component {
 			<table>
 				<tbody>
 					<tr>
-						<td> <InputIdentification /><InputFileReader /> </td>
+						<td>
+							{this.state.messageId}
+							<InputIdentification />
+							{this.state.messageFile}
+							<InputFileReader />
+						</td>
 						<td> <OutputData /> </td>
 					</tr>
 					<tr>
@@ -109,11 +126,13 @@ class InputFileReader extends React.Component {
 	
 	constructor(props) {
 		super(props);
+		this.state = {fileName: ""};
 		this.handleFileChoosen = this.handleFileChoosen.bind(this);
 	}
 	
 	handleFileChoosen(event) {
 		let file = event.target.files[0]
+		this.setState({fileName: file.name});
 		let fileReader = new FileReader();
 		fileReader.onloadend = () => {
 		      store.dispatch(setInputData(fileReader.result));
@@ -124,8 +143,12 @@ class InputFileReader extends React.Component {
 	render() {
 		return (
 			<React.Fragment>
-				<input type='file' id='file' className='input-file'
-					accept='.txt' onChange={this.handleFileChoosen} />
+				<div className="input-file-container">
+					<input type='file' id='file' className='input-file'
+						accept='.txt' onChange={this.handleFileChoosen} />
+					<label tabIndex="0" htmlFor="file" className="input-file-trigger">Select a file...</label>
+					<p>{this.state.fileName}</p>
+				</div>
 			</React.Fragment>
 		)
 	}
