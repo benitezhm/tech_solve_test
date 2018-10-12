@@ -11,3 +11,7 @@ Aplicación que permite determinar la cantidad máxima de viajes que un colabora
   * maven
   * npm
   * webpack
+  
+# About the author
+
+Miguel Benitez benitezhm@gmail.com
