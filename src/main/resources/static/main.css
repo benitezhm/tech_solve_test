@@ -1,7 +1,11 @@
 body {
-	font-family: 'Source Sans Pro, Arial, sans-serif';
+	font-family: 'Source Sans Pro', 'Arial', 'sans-serif';
 	background-color: #676d79;
 	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
 }
 
 table {
@@ -15,6 +19,7 @@ td, th {
 }
 
 input[type=number] {
+	font-family: 'Source Sans Pro', 'Arial', 'sans-serif';
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -22,6 +27,7 @@ input[type=number] {
 }
 
 input[type=file] {
+	font-family: 'Source Sans Pro', 'Arial', 'sans-serif';
 	position: absolute;
 	top: 0; left: 0;
 	width: 225px;
@@ -31,18 +37,26 @@ input[type=file] {
 }
 
 .input-file-container {
-  position: relative;
-  width: 225px;
+	position: relative;
+	width: 225px;
 } 
 
 .input-file-trigger {
-  display: block;
-  padding: 14px 45px;
-  background: #39D2B4;
-  color: #fff;
-  font-size: 1em;
-  transition: all .4s;
-  cursor: pointer;
+	display: block;
+	padding: 14px 45px;
+	background: #39D2B4;
+	color: #fff;
+	font-size: 1em;
+	transition: all .4s;
+	cursor: pointer;
+}
+
+.warning {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+    padding: 15px;
+    margin-bottom: 10px;
 }
 
 .output {
@@ -53,6 +67,7 @@ input[type=file] {
 }
 
 .submit {
+	font-family: 'Source Sans Pro', 'Arial', 'sans-serif';
 	background-color: #4CAF50; /* Green */
     border: none;
     color: white;
@@ -63,6 +78,16 @@ input[type=file] {
     font-size: 16px;
 }
 
-input, label {
-    display:block;
+.title {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+}
+
+.title-text {
+	width: 80%;
+}
+
+.title-img {
+	padding-top: 5%;
 }

@@ -50,7 +50,6 @@ class App extends React.Component {
 		// backend call here
 		axios.post(`http://localhost:8080/process_input`, data)
 			.then(res => {
-				console.log(res);
 				store.dispatch(setOutputData(res.data));
 		});
 		window.location = "#";
@@ -58,24 +57,43 @@ class App extends React.Component {
 	
 	render() {
 		return (
-			<table>
-				<tbody>
-					<tr>
-						<td>
-							{this.state.messageId}
-							<InputIdentification />
-							{this.state.messageFile}
-							<InputFileReader />
-						</td>
-						<td> <OutputData /> </td>
-					</tr>
-					<tr>
-						<td colSpan="2">
-							<button className="submit" onClick={this.handleSubmit}>Submit</button>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+			<React.Fragment>
+				<div className="title">
+					<div className="title-text">
+						<h1>Tech and Solve Test</h1>
+						<h2>Lazy Loading</h2>
+					</div>
+					<div className="title-img"><img src="/images/logo-tech-and-solve.png" /></div>
+				</div>
+				<table>
+					<thead>
+						<tr>
+							<td><strong>Input:</strong></td>
+							<td><strong>Output:</strong></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								{this.state.messageId != "" &&
+									<div className="warning">{this.state.messageId}</div>
+								}
+								<InputIdentification />
+								{this.state.messageFile != "" &&
+									<div className="warning">{this.state.messageFile}</div>
+								}
+								<InputFileReader />
+							</td>
+							<td> <OutputData /> </td>
+						</tr>
+						<tr>
+							<td colSpan="2">
+								<button className="submit" onClick={this.handleSubmit}>Submit</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</React.Fragment>
 		)
 	}
 }
@@ -177,7 +195,6 @@ class OutputData extends React.Component {
 		});
 		return (
 			<React.Fragment>
-				<label htmlFor="output">Output:</label>
 				<div className="output">
 					<ul>{output}</ul>
 				</div>

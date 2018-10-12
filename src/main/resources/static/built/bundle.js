@@ -24072,7 +24072,6 @@ function (_React$Component) {
 
 
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("http://localhost:8080/process_input", data).then(function (res) {
-        console.log(res);
         _store__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_3__["setOutputData"])(res.data));
       });
       window.location = "#";
@@ -24080,12 +24079,24 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return React.createElement("table", null, React.createElement("tbody", null, React.createElement("tr", null, React.createElement("td", null, this.state.messageId, React.createElement(InputIdentification, null), this.state.messageFile, React.createElement(InputFileReader, null)), React.createElement("td", null, " ", React.createElement(OutputData, null), " ")), React.createElement("tr", null, React.createElement("td", {
+      return React.createElement(React.Fragment, null, React.createElement("div", {
+        className: "title"
+      }, React.createElement("div", {
+        className: "title-text"
+      }, React.createElement("h1", null, "Tech and Solve Test"), React.createElement("h2", null, "Lazy Loading")), React.createElement("div", {
+        className: "title-img"
+      }, React.createElement("img", {
+        src: "/images/logo-tech-and-solve.png"
+      }))), React.createElement("table", null, React.createElement("thead", null, React.createElement("tr", null, React.createElement("td", null, React.createElement("strong", null, "Input:")), React.createElement("td", null, React.createElement("strong", null, "Output:")))), React.createElement("tbody", null, React.createElement("tr", null, React.createElement("td", null, this.state.messageId != "" && React.createElement("div", {
+        className: "warning"
+      }, this.state.messageId), React.createElement(InputIdentification, null), this.state.messageFile != "" && React.createElement("div", {
+        className: "warning"
+      }, this.state.messageFile), React.createElement(InputFileReader, null)), React.createElement("td", null, " ", React.createElement(OutputData, null), " ")), React.createElement("tr", null, React.createElement("td", {
         colSpan: "2"
       }, React.createElement("button", {
         className: "submit",
         onClick: this.handleSubmit
-      }, "Submit")))));
+      }, "Submit"))))));
     }
   }]);
 
@@ -24258,9 +24269,7 @@ function (_React$Component5) {
           key: el
         }, el);
       });
-      return React.createElement(React.Fragment, null, React.createElement("label", {
-        htmlFor: "output"
-      }, "Output:"), React.createElement("div", {
+      return React.createElement(React.Fragment, null, React.createElement("div", {
         className: "output"
       }, React.createElement("ul", null, output)));
     }
